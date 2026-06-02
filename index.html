@@ -8,13 +8,18 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- React 18 + Babel (для JSX) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -25,59 +30,31 @@
             display: ['"Playfair Display"', 'serif'],
           },
           colors: {
-            // Небесно-бирюзовый (небо/флаг)
             sky: {
-              50:  '#eefcfb',
-              100: '#d4f7f4',
-              200: '#aceeea',
-              300: '#76dfdc',
-              400: '#3ac8c8',
-              500: '#1faaac',
-              600: '#178a8d',
-              700: '#176d70',
-              800: '#18585b',
-              900: '#184a4d',
+              50:'#eefcfb',100:'#d4f7f4',200:'#aceeea',300:'#76dfdc',400:'#3ac8c8',
+              500:'#1faaac',600:'#178a8d',700:'#176d70',800:'#18585b',900:'#184a4d',
             },
-            // Золото/песок степи
             sand: {
-              50:  '#fbf7ee',
-              100: '#f5ecd4',
-              200: '#ecd7a4',
-              300: '#e2bd6f',
-              400: '#daa848',
-              500: '#cf9233',
-              600: '#b5742a',
-              700: '#945726',
-              800: '#7a4725',
-              900: '#673c22',
+              50:'#fbf7ee',100:'#f5ecd4',200:'#ecd7a4',300:'#e2bd6f',400:'#daa848',
+              500:'#cf9233',600:'#b5742a',700:'#945726',800:'#7a4725',900:'#673c22',
             },
             graphite: {
-              50:  '#f5f6f7',
-              100: '#e6e8ea',
-              500: '#5b6670',
-              700: '#333b43',
-              800: '#252b31',
-              900: '#171b1f',
+              50:'#f5f6f7',100:'#e6e8ea',200:'#d2d6da',500:'#5b6670',700:'#333b43',800:'#252b31',900:'#171b1f',
             },
           },
           keyframes: {
-            'fade-up': {
-              '0%':   { opacity: '0', transform: 'translateY(16px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            'scale-in': {
-              '0%':   { opacity: '0', transform: 'scale(.95)' },
-              '100%': { opacity: '1', transform: 'scale(1)' },
-            },
-            'fade-in': {
-              '0%':   { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
+            'fade-up':{'0%':{opacity:'0',transform:'translateY(18px)'},'100%':{opacity:'1',transform:'translateY(0)'}},
+            'scale-in':{'0%':{opacity:'0',transform:'scale(.95)'},'100%':{opacity:'1',transform:'scale(1)'}},
+            'fade-in':{'0%':{opacity:'0'},'100%':{opacity:'1'}},
+            'spin-slow':{'0%':{transform:'rotate(0)'},'100%':{transform:'rotate(360deg)'}},
+            'float':{'0%,100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},
           },
           animation: {
-            'fade-up': 'fade-up .5s cubic-bezier(.16,1,.3,1) both',
-            'scale-in': 'scale-in .35s cubic-bezier(.16,1,.3,1) both',
-            'fade-in': 'fade-in .25s ease both',
+            'fade-up':'fade-up .55s cubic-bezier(.16,1,.3,1) both',
+            'scale-in':'scale-in .35s cubic-bezier(.16,1,.3,1) both',
+            'fade-in':'fade-in .25s ease both',
+            'spin-slow':'spin-slow 60s linear infinite',
+            'float':'float 6s ease-in-out infinite',
           },
         },
       },
@@ -88,373 +65,86 @@
     html { scroll-behavior: smooth; }
     body { -webkit-font-smoothing: antialiased; }
 
-    /* Казахский орнамент — тонкая декоративная полоса (этно-минимализм) */
+    /* ===== Казахский орнамент «ою-өрнек» — повторяющаяся волна (этно-минимализм) ===== */
     .ornament-band {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='24' viewBox='0 0 80 24'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.45' stroke-width='1.4'%3E%3Cpath d='M0 12 q10 -10 20 0 q10 10 20 0 q10 -10 20 0 q10 10 20 0'/%3E%3Cpath d='M0 12 q10 10 20 0 q10 -10 20 0 q10 10 20 0 q10 -10 20 0'/%3E%3C/g%3E%3C/svg%3E");
-      background-repeat: repeat-x;
-      background-position: center;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='24' viewBox='0 0 80 24'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.5' stroke-width='1.4'%3E%3Cpath d='M0 12 q10 -10 20 0 q10 10 20 0 q10 -10 20 0 q10 10 20 0'/%3E%3Cpath d='M0 12 q10 10 20 0 q10 -10 20 0 q10 10 20 0 q10 -10 20 0'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat:repeat-x; background-position:center;
     }
-
-    /* Шаңырақ-мотив для hero (концентрические лучи купола юрты) */
+    /* «қошқар мүйіз» (бараньи рога) — орнаментальная лента для разделителей */
+    .ornament-horns {
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='20' viewBox='0 0 60 20'%3E%3Cg fill='none' stroke='%23cf9233' stroke-opacity='0.55' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M30 18 C30 8 22 8 22 13 C22 16 26 16 26 12'/%3E%3Cpath d='M30 18 C30 8 38 8 38 13 C38 16 34 16 34 12'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat:repeat-x; background-position:center;
+    }
+    /* Мотив шаңырақа (купол юрты — лучи кереге) для hero */
     .shanyrak-grid {
       background-image:
-        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.10) 0%, transparent 60%),
-        repeating-conic-gradient(from 0deg at 50% 38%, rgba(255,255,255,0.06) 0deg 6deg, transparent 6deg 12deg);
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12) 0%, transparent 58%),
+        repeating-conic-gradient(from 0deg at 50% 40%, rgba(255,255,255,0.07) 0deg 6deg, transparent 6deg 12deg);
+    }
+    /* Сетчатый этно-фон секций */
+    .pattern-dots {
+      background-image:radial-gradient(rgba(23,109,112,0.10) 1px, transparent 1px);
+      background-size:22px 22px;
     }
 
-    .card-enter { animation: fade-up .5s cubic-bezier(.16,1,.3,1) both; }
-
-    /* Скрытие скроллбара чипов на мобильных */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    .line-clamp-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .modal-scroll::-webkit-scrollbar { width: 8px; }
-    .modal-scroll::-webkit-scrollbar-thumb { background: #c9d2d6; border-radius: 8px; }
+    .line-clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+    .no-scrollbar::-webkit-scrollbar{display:none;}
+    .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
+    .modal-scroll::-webkit-scrollbar{width:8px;}
+    .modal-scroll::-webkit-scrollbar-thumb{background:#c9d2d6;border-radius:8px;}
   </style>
 </head>
 
 <body class="font-sans bg-gradient-to-b from-sky-50 via-white to-sand-50 text-graphite-800 min-h-screen">
+  <div id="root"></div>
 
-  <!-- ============ ШАПКА ============ -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/70 border-b border-graphite-100/70">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <a href="#top" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-700 grid place-items-center shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
-            <i class="fa-solid fa-mountain-sun text-white text-lg"></i>
-          </div>
-          <div class="leading-tight">
-            <p class="font-display text-xl font-extrabold text-graphite-900">Шаңырақ</p>
-            <p class="text-[11px] uppercase tracking-[0.18em] text-sky-700 font-semibold">Мұра · Наследие</p>
-          </div>
-        </a>
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useMemo, useRef } = React;
 
-        <nav class="hidden md:flex items-center gap-1 text-sm font-semibold text-graphite-700">
-          <a href="#lenta" class="px-4 py-2 rounded-xl hover:bg-sky-50 hover:text-sky-700 transition">Лента</a>
-          <a href="#about" class="px-4 py-2 rounded-xl hover:bg-sky-50 hover:text-sky-700 transition">О проекте</a>
-          <button onclick="openAddModal()" class="ml-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-graphite-900 text-white hover:bg-graphite-800 transition shadow-lg shadow-graphite-900/20">
-            <i class="fa-solid fa-plus"></i> Добавить материал
-          </button>
-        </nav>
+    /* ============================================================
+       КОНСТАНТЫ
+    ============================================================ */
+    const STORAGE_KEY = 'shanyrak_materials_v2';
 
-        <button onclick="openAddModal()" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl bg-graphite-900 text-white shadow-lg">
-          <i class="fa-solid fa-plus"></i>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ============ HERO ============ -->
-  <section id="top" class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-sky-600 via-sky-700 to-sky-900"></div>
-    <div class="absolute inset-0 shanyrak-grid"></div>
-    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sand-300/20 blur-3xl"></div>
-    <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full bg-sky-300/20 blur-3xl"></div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-      <div class="max-w-3xl animate-fade-up">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-semibold tracking-wide backdrop-blur">
-          <i class="fa-solid fa-location-dot text-sand-300"></i>
-          Павлодарская область · Қазақстан
-        </span>
-
-        <h1 class="mt-6 font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05]">
-          Шаңырақ
-        </h1>
-        <p class="mt-4 text-lg sm:text-xl text-sky-50/90 font-medium max-w-2xl">
-          Методическая копилка культурного наследия Прииртышья. Сценарии, традиции,
-          краеведение и музыка — собранные педагогами и краеведами в единой воздушной библиотеке.
-        </p>
-
-        <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href="#lenta" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-sky-800 font-bold shadow-xl shadow-sky-900/30 hover:shadow-2xl hover:-translate-y-0.5 transition">
-            <i class="fa-solid fa-book-open"></i> Открыть копилку
-          </a>
-          <button onclick="openAddModal()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-sand-400 text-graphite-900 font-bold shadow-xl shadow-sand-900/20 hover:bg-sand-300 hover:-translate-y-0.5 transition">
-            <i class="fa-solid fa-feather-pointed"></i> Поделиться опытом
-          </button>
-        </div>
-
-        <!-- Статистика -->
-        <div class="mt-12 grid grid-cols-3 gap-4 max-w-md">
-          <div class="text-white">
-            <p id="statMaterials" class="text-3xl font-extrabold">0</p>
-            <p class="text-xs text-sky-100/80 font-semibold uppercase tracking-wide">материалов</p>
-          </div>
-          <div class="text-white">
-            <p id="statDistricts" class="text-3xl font-extrabold">0</p>
-            <p class="text-xs text-sky-100/80 font-semibold uppercase tracking-wide">районов</p>
-          </div>
-          <div class="text-white">
-            <p id="statComments" class="text-3xl font-extrabold">0</p>
-            <p class="text-xs text-sky-100/80 font-semibold uppercase tracking-wide">обсуждений</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ornament-band h-6 relative"></div>
-  </section>
-
-  <!-- ============ ПАНЕЛЬ ПОИСКА / ФИЛЬТРОВ ============ -->
-  <section id="lenta" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-    <div class="bg-white rounded-3xl shadow-xl shadow-graphite-900/5 border border-graphite-100 p-5 sm:p-6 animate-fade-up">
-      <div class="flex flex-col lg:flex-row gap-4 lg:items-center">
-        <!-- Поиск -->
-        <div class="relative flex-1">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500"></i>
-          <input id="searchInput" type="text" oninput="render()" placeholder="Поиск по названию материала…"
-            class="w-full pl-11 pr-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-graphite-800 placeholder:text-graphite-500" />
-        </div>
-
-        <!-- Селекты -->
-        <div class="flex flex-col sm:flex-row gap-3">
-          <div class="relative">
-            <i class="fa-solid fa-map absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none"></i>
-            <select id="filterDistrict" onchange="render()"
-              class="appearance-none w-full sm:w-56 pl-11 pr-10 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition font-semibold text-graphite-700 cursor-pointer">
-              <option value="">Все районы</option>
-            </select>
-            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none text-xs"></i>
-          </div>
-
-          <div class="relative">
-            <i class="fa-solid fa-layer-group absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none"></i>
-            <select id="filterCategory" onchange="render()"
-              class="appearance-none w-full sm:w-56 pl-11 pr-10 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition font-semibold text-graphite-700 cursor-pointer">
-              <option value="">Все категории</option>
-            </select>
-            <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none text-xs"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Быстрые чипы категорий -->
-      <div id="categoryChips" class="mt-4 flex gap-2 overflow-x-auto no-scrollbar pb-1"></div>
-    </div>
-  </section>
-
-  <!-- ============ ЛЕНТА КАРТОЧЕК ============ -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="flex items-end justify-between mb-6">
-      <div>
-        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-graphite-900">Лента материалов</h2>
-        <p id="resultCount" class="text-graphite-500 text-sm mt-1">—</p>
-      </div>
-    </div>
-
-    <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-    <!-- Пустое состояние -->
-    <div id="emptyState" class="hidden text-center py-20">
-      <div class="w-20 h-20 mx-auto rounded-3xl bg-sky-50 grid place-items-center text-sky-500 text-3xl">
-        <i class="fa-regular fa-folder-open"></i>
-      </div>
-      <p class="mt-5 text-lg font-bold text-graphite-800">Ничего не найдено</p>
-      <p class="text-graphite-500">Попробуйте изменить фильтры или добавьте первый материал.</p>
-      <button onclick="openAddModal()" class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-sky-600 text-white font-bold hover:bg-sky-700 transition">
-        <i class="fa-solid fa-plus"></i> Добавить материал
-      </button>
-    </div>
-  </main>
-
-  <!-- ============ О ПРОЕКТЕ ============ -->
-  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <div class="grid md:grid-cols-3 gap-5">
-      <div class="rounded-3xl bg-white border border-graphite-100 p-6 shadow-sm">
-        <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 grid place-items-center text-xl"><i class="fa-solid fa-hand-holding-heart"></i></div>
-        <h3 class="mt-4 font-bold text-lg text-graphite-900">Сохраняем традиции</h3>
-        <p class="mt-1 text-graphite-500 text-sm">Каждый материал — частица живого наследия Павлодарского Прииртышья для будущих поколений.</p>
-      </div>
-      <div class="rounded-3xl bg-white border border-graphite-100 p-6 shadow-sm">
-        <div class="w-12 h-12 rounded-2xl bg-sand-100 text-sand-700 grid place-items-center text-xl"><i class="fa-solid fa-people-group"></i></div>
-        <h3 class="mt-4 font-bold text-lg text-graphite-900">Обмениваемся опытом</h3>
-        <p class="mt-1 text-graphite-500 text-sm">Педагоги и краеведы делятся сценариями, обсуждают и дополняют материалы коллег.</p>
-      </div>
-      <div class="rounded-3xl bg-white border border-graphite-100 p-6 shadow-sm">
-        <div class="w-12 h-12 rounded-2xl bg-graphite-100 text-graphite-700 grid place-items-center text-xl"><i class="fa-solid fa-download"></i></div>
-        <h3 class="mt-4 font-bold text-lg text-graphite-900">Всё под рукой</h3>
-        <p class="mt-1 text-graphite-500 text-sm">Скачивайте материалы в TXT, копируйте сценарии — данные хранятся прямо в вашем браузере.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ПОДВАЛ ============ -->
-  <footer class="bg-graphite-900 text-sky-100/70">
-    <div class="ornament-band h-6 opacity-60"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 grid place-items-center">
-          <i class="fa-solid fa-mountain-sun text-white"></i>
-        </div>
-        <div>
-          <p class="font-display font-bold text-white">Шаңырақ</p>
-          <p class="text-xs">Методическая копилка · Павлодарская область</p>
-        </div>
-      </div>
-      <p class="text-xs text-center sm:text-right">
-        Локальное приложение · данные хранятся в вашем браузере (localStorage)<br>
-        <button onclick="resetSeed()" class="mt-1 underline hover:text-white transition">Сбросить к примерам</button>
-      </p>
-    </div>
-  </footer>
-
-  <!-- =================================================================== -->
-  <!-- ============ МОДАЛКА: ДОБАВЛЕНИЕ МАТЕРИАЛА ============ -->
-  <!-- =================================================================== -->
-  <div id="addModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-graphite-900/50 backdrop-blur-sm animate-fade-in" onclick="closeAddModal()"></div>
-    <div class="absolute inset-0 overflow-y-auto modal-scroll">
-      <div class="min-h-full flex items-start sm:items-center justify-center p-4">
-        <div class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl animate-scale-in my-4">
-          <!-- Шапка модалки -->
-          <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-5 border-b border-graphite-100 bg-white rounded-t-3xl">
-            <div>
-              <h3 class="font-display text-2xl font-extrabold text-graphite-900">Новый материал</h3>
-              <p class="text-sm text-graphite-500">Добавьте свой вклад в копилку наследия</p>
-            </div>
-            <button onclick="closeAddModal()" class="w-10 h-10 rounded-xl hover:bg-graphite-50 grid place-items-center text-graphite-500 transition">
-              <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-          </div>
-
-          <form id="addForm" onsubmit="handleAdd(event)" class="px-6 py-6 space-y-5">
-            <div>
-              <label class="block text-sm font-bold text-graphite-700 mb-1.5">Название материала <span class="text-sky-600">*</span></label>
-              <input name="title" required type="text" placeholder="Например: Сценарий праздника Наурыз"
-                class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition" />
-            </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-bold text-graphite-700 mb-1.5">ФИО автора <span class="text-sky-600">*</span></label>
-                <input name="author" required type="text" placeholder="Айгерим Серикова"
-                  class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition" />
-              </div>
-              <div>
-                <label class="block text-sm font-bold text-graphite-700 mb-1.5">Район <span class="text-sky-600">*</span></label>
-                <select name="district" required
-                  class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition cursor-pointer">
-                  <option value="" disabled selected>Выберите район…</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-bold text-graphite-700 mb-1.5">Категория <span class="text-sky-600">*</span></label>
-              <select name="category" required
-                class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition cursor-pointer">
-                <option value="" disabled selected>Выберите категорию…</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm font-bold text-graphite-700 mb-1.5">Краткое описание <span class="text-sky-600">*</span></label>
-              <textarea name="summary" required rows="2" placeholder="Одно-два предложения о сути материала…"
-                class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition resize-none"></textarea>
-            </div>
-
-            <div>
-              <label class="block text-sm font-bold text-graphite-700 mb-1.5">Полный текст / Методические рекомендации <span class="text-sky-600">*</span></label>
-              <textarea name="content" required rows="6" placeholder="Подробное описание, ход мероприятия, методические рекомендации…"
-                class="w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition resize-y modal-scroll"></textarea>
-            </div>
-
-            <div class="flex items-center justify-end gap-3 pt-2">
-              <button type="button" onclick="closeAddModal()" class="px-5 py-3 rounded-2xl font-bold text-graphite-600 hover:bg-graphite-50 transition">Отмена</button>
-              <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-sky-600 text-white font-bold shadow-lg shadow-sky-600/30 hover:bg-sky-700 hover:-translate-y-0.5 transition">
-                <i class="fa-solid fa-paper-plane"></i> Опубликовать в копилку
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- =================================================================== -->
-  <!-- ============ МОДАЛКА: ПРОСМОТР МАТЕРИАЛА ============ -->
-  <!-- =================================================================== -->
-  <div id="viewModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-graphite-900/50 backdrop-blur-sm animate-fade-in" onclick="closeViewModal()"></div>
-    <div class="absolute inset-0 overflow-y-auto modal-scroll">
-      <div class="min-h-full flex items-start justify-center p-4">
-        <div class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl animate-scale-in my-4" id="viewModalBody">
-          <!-- наполняется JS -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ TOAST ============ -->
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] hidden">
-    <div class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-graphite-900 text-white shadow-2xl animate-fade-up">
-      <i id="toastIcon" class="fa-solid fa-circle-check text-sky-400"></i>
-      <span id="toastMsg" class="font-semibold text-sm">Готово</span>
-    </div>
-  </div>
-
-  <!-- =================================================================== -->
-  <!-- ============ JAVASCRIPT ============ -->
-  <!-- =================================================================== -->
-  <script>
-    /* ------------------ КОНСТАНТЫ ------------------ */
-    const STORAGE_KEY = 'shanyrak_materials_v1';
-
-    // Районы и города Павлодарской области
-    const DISTRICTS_FIX = [
-      'Аккулинский район',
-      'Актогайский район',
-      'Баянаульский район',
-      'Железинский район',
-      'Иртышский район',
-      'Майский район',
-      'Павлодарский район',
-      'Теренколь (Качирский) район',
-      'Успенский район',
-      'Щербактинский район',
-      'г. Павлодар',
-      'г. Аксу',
-      'г. Экибастуз',
+    const DISTRICTS = [
+      'Аккулинский район','Актогайский район','Баянаульский район','Железинский район',
+      'Иртышский район','Майский район','Павлодарский район','Теренколь (Качирский) район',
+      'Успенский район','Щербактинский район','г. Павлодар','г. Аксу','г. Экибастуз',
     ];
 
-    // Категории с иконками и цветами
     const CATEGORIES = [
-      { name: 'Традиции',          icon: 'fa-hands-holding-circle', color: 'sand' },
-      { name: 'Музыка',            icon: 'fa-music',                color: 'sky'  },
-      { name: 'Краеведение',       icon: 'fa-compass',              color: 'graphite' },
-      { name: 'Сценарии уроков',   icon: 'fa-chalkboard-user',      color: 'sky'  },
-      { name: 'Поэзия и литература',icon: 'fa-feather',             color: 'sand' },
-      { name: 'Прикладное искусство', icon: 'fa-palette',           color: 'graphite' },
+      { name:'Традиции',            icon:'fa-hands-holding-circle', color:'sand' },
+      { name:'Музыка',              icon:'fa-music',                color:'sky'  },
+      { name:'Краеведение',         icon:'fa-compass',              color:'graphite' },
+      { name:'Сценарии уроков',     icon:'fa-chalkboard-user',      color:'sky'  },
+      { name:'Поэзия и литература', icon:'fa-feather',              color:'sand' },
+      { name:'Прикладное искусство',icon:'fa-palette',              color:'graphite' },
+    ];
+    const CAT_STYLES = {
+      sand:    { chip:'bg-sand-100 text-sand-700',        dot:'bg-sand-400',     ring:'ring-sand-200' },
+      sky:     { chip:'bg-sky-100 text-sky-700',          dot:'bg-sky-500',      ring:'ring-sky-200'  },
+      graphite:{ chip:'bg-graphite-100 text-graphite-700',dot:'bg-graphite-500', ring:'ring-graphite-200' },
+    };
+    const catMeta = (name) => CATEGORIES.find(c => c.name === name) || { name, icon:'fa-tag', color:'graphite' };
+
+    /* Казахские крылатые слова для секций */
+    const PROVERBS = [
+      { kz:'Өнер алды — қызыл тіл', ru:'Венец искусства — родное слово' },
+      { kz:'Жеті атасын білген ер, жеті жұрттың қамын жер', ru:'Знающий свой род — заботится о народе' },
+      { kz:'Атаның баласы болма, адамның баласы бол', ru:'Будь сыном не только отца, но и всего человечества' },
+      { kz:'Білім — таусылмас кен', ru:'Знание — неиссякаемая сокровищница' },
     ];
 
-    const CAT_STYLES = {
-      sand:     { chip: 'bg-sand-100 text-sand-700',         dot: 'bg-sand-400' },
-      sky:      { chip: 'bg-sky-100 text-sky-700',           dot: 'bg-sky-500'  },
-      graphite: { chip: 'bg-graphite-100 text-graphite-700', dot: 'bg-graphite-500' },
-    };
-
-    function catMeta(name) {
-      return CATEGORIES.find(c => c.name === name) || { name, icon: 'fa-tag', color: 'graphite' };
-    }
-
-    /* ------------------ SEED DATA ------------------ */
+    /* ============================================================
+       SEED DATA
+    ============================================================ */
     const SEED = [
       {
-        id: 'seed-1',
-        title: 'Поэтическое наследие Султанмахмута Торайгырова',
-        author: 'Гульнар Ахметова',
-        district: 'Баянаульский район',
-        category: 'Поэзия и литература',
-        summary: 'Литературно-музыкальная композиция, посвящённая жизни и творчеству выдающегося казахского поэта-демократа, уроженца Баянаула.',
-        content:
-`Цель: познакомить учащихся с жизнью и творчеством Султанмахмута Торайгырова (1893–1920), воспитать чувство гордости за земляков.
+        id:'seed-1',
+        title:'Поэтическое наследие Султанмахмута Торайгырова',
+        author:'Гульнар Ахметова', district:'Баянаульский район', category:'Поэзия и литература',
+        summary:'Литературно-музыкальная композиция, посвящённая жизни и творчеству выдающегося казахского поэта-демократа, уроженца Баянаула.',
+        content:`Цель: познакомить учащихся с жизнью и творчеством Султанмахмута Торайгырова (1893–1920), воспитать чувство гордости за земляков.
 
 Оформление: портрет поэта, выставка книг, степной пейзаж Баянаула, домбра.
 
@@ -471,20 +161,15 @@
 — Завершите мероприятие посещением (или виртуальной экскурсией) музея С. Торайгырова.
 
 Ожидаемый результат: учащиеся знают основные вехи биографии поэта, могут назвать главные произведения и понимают их гуманистический смысл.`,
-        date: '2026-04-12T09:00:00.000Z',
-        comments: [
-          { id: 'c1', author: 'Марат Қ.', text: 'Прекрасный сценарий, использовал на районном конкурсе — детям очень понравилась викторина!', date: '2026-04-15T10:20:00.000Z' },
-        ],
+        date:'2026-04-12T09:00:00.000Z',
+        comments:[{ id:'c1', author:'Марат Қ.', text:'Прекрасный сценарий, использовал на районном конкурсе — детям очень понравилась викторина!', date:'2026-04-15T10:20:00.000Z' }],
       },
       {
-        id: 'seed-2',
-        title: 'Традиции гостеприимства Баянаула «Қонақасы»',
-        author: 'Динара Сейтказина',
-        district: 'Баянаульский район',
-        category: 'Традиции',
-        summary: 'Описание обычая казахского гостеприимства: встреча гостя, дастархан, обряд «бата» и роль старших.',
-        content:
-`Тема: «Қонақжайлылық — народная мудрость гостеприимства».
+        id:'seed-2',
+        title:'Традиции гостеприимства Баянаула «Қонақасы»',
+        author:'Динара Сейтказина', district:'Баянаульский район', category:'Традиции',
+        summary:'Описание обычая казахского гостеприимства: встреча гостя, дастархан, обряд «бата» и роль старших.',
+        content:`Тема: «Қонақжайлылық — народная мудрость гостеприимства».
 
 Казахская пословица гласит: «Қонақ келсе, құт келеді» — «С гостем приходит благополучие».
 
@@ -501,18 +186,14 @@
 1. Инсценируйте встречу гостя силами учащихся.
 2. Организуйте дастархан с национальными угощениями.
 3. Предложите детям записать «бата» от своих бабушек и дедушек — получится живой архив.`,
-        date: '2026-03-28T08:30:00.000Z',
-        comments: [],
+        date:'2026-03-28T08:30:00.000Z', comments:[],
       },
       {
-        id: 'seed-3',
-        title: 'Музыкальные инструменты Прииртышья',
-        author: 'Ербол Жумабеков',
-        district: 'Иртышский район',
-        category: 'Музыка',
-        summary: 'Обзорный урок о традиционных казахских инструментах: домбра, кобыз, сыбызгы, жетыген — с примерами кюев.',
-        content:
-`Тип занятия: интегрированный урок музыки и краеведения.
+        id:'seed-3',
+        title:'Музыкальные инструменты Прииртышья',
+        author:'Ербол Жумабеков', district:'Иртышский район', category:'Музыка',
+        summary:'Обзорный урок о традиционных казахских инструментах: домбра, кобыз, сыбызгы, жетыген — с примерами кюев.',
+        content:`Тип занятия: интегрированный урок музыки и краеведения.
 
 Инструменты, рассматриваемые на уроке:
 1. Домбра — двухструнный щипковый инструмент, символ казахской музыки. Основа кюев Таттимбета, Курмангазы.
@@ -530,20 +211,15 @@
 Свяжите тему с природой родного Прииртышья — звуки сыбызгы напоминают шум иртышского ветра. Пригласите на урок местного домбриста, если есть возможность.
 
 Итог: дети различают тембры инструментов и понимают их роль в культуре.`,
-        date: '2026-05-05T11:15:00.000Z',
-        comments: [
-          { id: 'c2', author: 'Айгуль С.', text: 'Добавила к уроку прослушивание кюя «Адай» — получилось очень атмосферно.', date: '2026-05-07T14:00:00.000Z' },
-        ],
+        date:'2026-05-05T11:15:00.000Z',
+        comments:[{ id:'c2', author:'Айгуль С.', text:'Добавила к уроку прослушивание кюя «Адай» — получилось очень атмосферно.', date:'2026-05-07T14:00:00.000Z' }],
       },
       {
-        id: 'seed-4',
-        title: 'Краеведческая экспедиция «Тайны Баянаульских гор»',
-        author: 'Сауле Кенжебаева',
-        district: 'Баянаульский район',
-        category: 'Краеведение',
-        summary: 'Маршрут школьной экспедиции по природному наследию Баянаула: пещеры, озёра Жасыбай и Сабындыколь, легенды края.',
-        content:
-`Формат: однодневная краеведческая экспедиция / классный проект.
+        id:'seed-4',
+        title:'Краеведческая экспедиция «Тайны Баянаульских гор»',
+        author:'Сауле Кенжебаева', district:'Баянаульский район', category:'Краеведение',
+        summary:'Маршрут школьной экспедиции по природному наследию Баянаула: пещеры, озёра Жасыбай и Сабындыколь, легенды края.',
+        content:`Формат: однодневная краеведческая экспедиция / классный проект.
 
 Объекты маршрута:
 • Озеро Жасыбай — жемчужина Баянаула, названо в честь батыра Жасыбая.
@@ -563,377 +239,64 @@
 — Обязательно проведите инструктаж по технике безопасности.
 
 Итоговый продукт: стенгазета или презентация «Наследие Баянаула», защита проектов перед классом.`,
-        date: '2026-05-20T07:45:00.000Z',
-        comments: [],
+        date:'2026-05-20T07:45:00.000Z', comments:[],
+      },
+      {
+        id:'seed-5',
+        title:'Мастер-класс «Узоры степи: ою-өрнек»',
+        author:'Жанна Оразова', district:'г. Павлодар', category:'Прикладное искусство',
+        summary:'Практическое занятие по казахскому орнаменту: символика «қошқар мүйіз», «түйе табан», создание узора из бумаги (қию).',
+        content:`Тема занятия: «Ою-өрнек — язык казахского орнамента».
+
+Знакомство с символикой:
+• Қошқар мүйіз (бараньи рога) — символ достатка и плодородия.
+• Түйе табан (след верблюда) — символ выносливости и дороги.
+• Су (вода) — волнистый узор жизни и движения.
+• Шаңырақ — символ единства семьи и продолжения рода.
+
+Материалы: цветная бумага, ножницы, клей, шаблоны.
+
+Ход мастер-класса:
+1. Беседа о значении орнамента в жизни кочевников (войлок, текемет, сырмак).
+2. Демонстрация техники симметричного вырезания «қию» — складываем бумагу и вырезаем зеркальный узор.
+3. Самостоятельная работа: каждый создаёт свой элемент «қошқар мүйіз».
+4. Коллективное панно: объединяем работы в общий «текемет».
+
+Методические рекомендации:
+— Подчеркните принцип симметрии и парности в казахском орнаменте.
+— Свяжите тему с математикой (оси симметрии) и историей.
+
+Итог: дети понимают символику национального орнамента и владеют простейшей техникой «қию».`,
+        date:'2026-05-28T10:00:00.000Z', comments:[],
       },
     ];
 
-    /* ------------------ ХРАНИЛИЩЕ ------------------ */
-    function load() {
+    /* ============================================================
+       ХРАНИЛИЩЕ
+    ============================================================ */
+    const loadData = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED));
-          return structuredClone(SEED);
-        }
+        if (!raw) { localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED)); return structuredClone(SEED); }
         return JSON.parse(raw);
-      } catch (e) {
-        console.error('Ошибка чтения localStorage', e);
-        return structuredClone(SEED);
-      }
-    }
-    function save(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
+      } catch (e) { console.error(e); return structuredClone(SEED); }
+    };
+    const saveData = (d) => localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
 
-    let materials = load();
-
-    /* ------------------ УТИЛИТЫ ------------------ */
-    function escapeHtml(str = '') {
-      return str
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-    }
-    function formatDate(iso) {
-      try {
-        return new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-      } catch { return ''; }
-    }
-    function uid() {
-      return 'm-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
-    }
-    function showToast(msg, icon = 'fa-circle-check') {
-      const t = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      document.getElementById('toastIcon').className = 'fa-solid ' + icon + ' text-sky-400';
-      t.classList.remove('hidden');
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => t.classList.add('hidden'), 2600);
-    }
-
-    /* ------------------ ИНИЦИАЛИЗАЦИЯ СЕЛЕКТОВ ------------------ */
-    function initSelects() {
-      // фильтр районов
-      const fd = document.getElementById('filterDistrict');
-      const formDistrict = document.querySelector('#addForm select[name="district"]');
-      DISTRICTS_FIX.forEach(d => {
-        fd.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`);
-        formDistrict.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`);
-      });
-
-      // фильтр категорий
-      const fc = document.getElementById('filterCategory');
-      const formCategory = document.querySelector('#addForm select[name="category"]');
-      CATEGORIES.forEach(c => {
-        fc.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
-        formCategory.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
-      });
-
-      // чипы быстрых категорий
-      const chips = document.getElementById('categoryChips');
-      const allChip = makeChip('', 'Все', 'fa-border-all');
-      chips.appendChild(allChip);
-      CATEGORIES.forEach(c => chips.appendChild(makeChip(c.name, c.name, c.icon)));
-      updateChipState();
-    }
-
-    function makeChip(value, label, icon) {
-      const btn = document.createElement('button');
-      btn.dataset.value = value;
-      btn.className = 'chip whitespace-nowrap inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition';
-      btn.innerHTML = `<i class="fa-solid ${icon} text-xs"></i> ${escapeHtml(label)}`;
-      btn.onclick = () => {
-        document.getElementById('filterCategory').value = value;
-        render();
-      };
-      return btn;
-    }
-
-    function updateChipState() {
-      const current = document.getElementById('filterCategory').value;
-      document.querySelectorAll('#categoryChips .chip').forEach(ch => {
-        if (ch.dataset.value === current) {
-          ch.className = 'chip whitespace-nowrap inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition bg-sky-600 text-white border-sky-600 shadow-md shadow-sky-600/30';
-        } else {
-          ch.className = 'chip whitespace-nowrap inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition bg-white text-graphite-600 border-graphite-100 hover:border-sky-300 hover:text-sky-700';
-        }
-      });
-    }
-
-    /* ------------------ РЕНДЕР ЛЕНТЫ ------------------ */
-    function render() {
-      const q = document.getElementById('searchInput').value.trim().toLowerCase();
-      const district = document.getElementById('filterDistrict').value;
-      const category = document.getElementById('filterCategory').value;
-
-      updateChipState();
-
-      let list = materials.filter(m => {
-        const matchQ = !q || m.title.toLowerCase().includes(q) || (m.summary || '').toLowerCase().includes(q) || (m.author || '').toLowerCase().includes(q);
-        const matchD = !district || m.district === district;
-        const matchC = !category || m.category === category;
-        return matchQ && matchD && matchC;
-      });
-
-      // новые сверху
-      list = list.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      const grid = document.getElementById('cardsGrid');
-      const empty = document.getElementById('emptyState');
-      const count = document.getElementById('resultCount');
-
-      count.textContent = list.length
-        ? `Найдено материалов: ${list.length}`
-        : 'Материалы не найдены';
-
-      if (!list.length) {
-        grid.innerHTML = '';
-        empty.classList.remove('hidden');
-      } else {
-        empty.classList.add('hidden');
-        grid.innerHTML = list.map((m, i) => cardHTML(m, i)).join('');
-      }
-
-      updateStats();
-    }
-
-    function cardHTML(m, i) {
-      const meta = catMeta(m.category);
-      const st = CAT_STYLES[meta.color] || CAT_STYLES.graphite;
-      const commentsCount = (m.comments || []).length;
-      return `
-        <article class="card-enter group bg-white rounded-2xl border border-graphite-100 shadow-sm hover:shadow-xl hover:shadow-graphite-900/5 hover:-translate-y-1 transition cursor-pointer overflow-hidden flex flex-col"
-          style="animation-delay:${Math.min(i * 60, 480)}ms" onclick="openView('${m.id}')">
-          <div class="h-1.5 ${st.dot}"></div>
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex items-center justify-between gap-2">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${st.chip}">
-                <i class="fa-solid ${meta.icon}"></i> ${escapeHtml(m.category)}
-              </span>
-              <span class="inline-flex items-center gap-1 text-xs font-semibold text-graphite-500">
-                <i class="fa-solid fa-location-dot text-sky-500"></i> ${escapeHtml(shortDistrict(m.district))}
-              </span>
-            </div>
-
-            <h3 class="mt-3 font-display text-lg font-bold text-graphite-900 leading-snug group-hover:text-sky-700 transition">
-              ${escapeHtml(m.title)}
-            </h3>
-            <p class="mt-2 text-sm text-graphite-500 line-clamp-3 flex-1">${escapeHtml(m.summary)}</p>
-
-            <div class="mt-4 pt-4 border-t border-graphite-100 flex items-center justify-between">
-              <div class="flex items-center gap-2 min-w-0">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 grid place-items-center text-white text-xs font-bold shrink-0">
-                  ${escapeHtml(initials(m.author))}
-                </div>
-                <div class="min-w-0">
-                  <p class="text-xs font-bold text-graphite-700 truncate">${escapeHtml(m.author)}</p>
-                  <p class="text-[11px] text-graphite-500">${escapeHtml(formatDate(m.date))}</p>
-                </div>
-              </div>
-              ${commentsCount ? `<span class="inline-flex items-center gap-1 text-xs text-graphite-500"><i class="fa-regular fa-comment"></i> ${commentsCount}</span>` : ''}
-            </div>
-
-            <button class="mt-4 inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-sky-50 text-sky-700 font-bold text-sm group-hover:bg-sky-600 group-hover:text-white transition">
-              Читать далее <i class="fa-solid fa-arrow-right text-xs"></i>
-            </button>
-          </div>
-        </article>`;
-    }
-
-    function shortDistrict(d = '') {
-      return d.replace(' район', '').replace('(Качирский) ', '');
-    }
-    function initials(name = '') {
-      const parts = name.trim().split(/\s+/);
-      return ((parts[0]?.[0] || '') + (parts[1]?.[0] || '')).toUpperCase() || '👤';
-    }
-
-    /* ------------------ СТАТИСТИКА ------------------ */
-    function updateStats() {
-      document.getElementById('statMaterials').textContent = materials.length;
-      const districts = new Set(materials.map(m => m.district));
-      document.getElementById('statDistricts').textContent = districts.size;
-      const comments = materials.reduce((s, m) => s + (m.comments?.length || 0), 0);
-      document.getElementById('statComments').textContent = comments;
-    }
-
-    /* ------------------ ДОБАВЛЕНИЕ ------------------ */
-    function openAddModal() {
-      document.getElementById('addModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeAddModal() {
-      document.getElementById('addModal').classList.add('hidden');
-      document.body.style.overflow = '';
-      document.getElementById('addForm').reset();
-    }
-    function handleAdd(e) {
-      e.preventDefault();
-      const f = e.target;
-      const item = {
-        id: uid(),
-        title: f.title.value.trim(),
-        author: f.author.value.trim(),
-        district: f.district.value,
-        category: f.category.value,
-        summary: f.summary.value.trim(),
-        content: f.content.value.trim(),
-        date: new Date().toISOString(),
-        comments: [],
-      };
-      materials.push(item);
-      save(materials);
-      closeAddModal();
-
-      // сброс фильтров, чтобы новый материал был виден
-      document.getElementById('searchInput').value = '';
-      document.getElementById('filterDistrict').value = '';
-      document.getElementById('filterCategory').value = '';
-      render();
-
-      showToast('Материал опубликован в копилку!', 'fa-circle-check');
-      document.getElementById('lenta').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    /* ------------------ ПРОСМОТР ------------------ */
-    let currentViewId = null;
-
-    function openView(id) {
-      const m = materials.find(x => x.id === id);
-      if (!m) return;
-      currentViewId = id;
-      const meta = catMeta(m.category);
-      const st = CAT_STYLES[meta.color] || CAT_STYLES.graphite;
-
-      document.getElementById('viewModalBody').innerHTML = `
-        <div class="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 py-5 border-b border-graphite-100 bg-white/95 backdrop-blur rounded-t-3xl">
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2 mb-2">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${st.chip}">
-                <i class="fa-solid ${meta.icon}"></i> ${escapeHtml(m.category)}
-              </span>
-              <span class="inline-flex items-center gap-1 text-xs font-semibold text-graphite-500">
-                <i class="fa-solid fa-location-dot text-sky-500"></i> ${escapeHtml(m.district)}
-              </span>
-            </div>
-            <h3 class="font-display text-2xl font-extrabold text-graphite-900 leading-tight">${escapeHtml(m.title)}</h3>
-          </div>
-          <button onclick="closeViewModal()" class="shrink-0 w-10 h-10 rounded-xl hover:bg-graphite-50 grid place-items-center text-graphite-500 transition">
-            <i class="fa-solid fa-xmark text-lg"></i>
-          </button>
-        </div>
-
-        <div class="px-6 py-6">
-          <!-- автор и дата -->
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 grid place-items-center text-white text-sm font-bold">
-              ${escapeHtml(initials(m.author))}
-            </div>
-            <div>
-              <p class="text-sm font-bold text-graphite-800">${escapeHtml(m.author)}</p>
-              <p class="text-xs text-graphite-500"><i class="fa-regular fa-calendar"></i> ${escapeHtml(formatDate(m.date))}</p>
-            </div>
-          </div>
-
-          <!-- краткое описание -->
-          <div class="rounded-2xl bg-sky-50/70 border border-sky-100 p-4 mb-5">
-            <p class="text-sm text-sky-900/80 font-medium italic">${escapeHtml(m.summary)}</p>
-          </div>
-
-          <!-- полный текст -->
-          <div class="prose-content whitespace-pre-wrap text-graphite-700 leading-relaxed text-[15px]">${escapeHtml(m.content)}</div>
-
-          <!-- действия -->
-          <div class="mt-6 flex flex-wrap gap-3">
-            <button onclick="downloadTxt('${m.id}')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-sky-600 text-white font-bold text-sm hover:bg-sky-700 transition shadow-lg shadow-sky-600/20">
-              <i class="fa-solid fa-download"></i> Скачать в TXT
-            </button>
-            <button onclick="copyText('${m.id}')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-graphite-100 text-graphite-700 font-bold text-sm hover:bg-graphite-200 transition">
-              <i class="fa-regular fa-copy"></i> Копировать текст
-            </button>
-            <button onclick="deleteMaterial('${m.id}')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-red-50 text-red-600 font-bold text-sm hover:bg-red-100 transition ml-auto">
-              <i class="fa-regular fa-trash-can"></i> Удалить
-            </button>
-          </div>
-
-          <!-- ОБМЕН ОПЫТОМ / КОММЕНТАРИИ -->
-          <div class="mt-8 pt-6 border-t border-graphite-100">
-            <h4 class="font-display text-lg font-bold text-graphite-900 flex items-center gap-2">
-              <i class="fa-regular fa-comments text-sky-500"></i> Обмен опытом
-              <span class="text-sm font-semibold text-graphite-400">(${(m.comments || []).length})</span>
-            </h4>
-
-            <form onsubmit="addComment(event, '${m.id}')" class="mt-4 flex flex-col sm:flex-row gap-3">
-              <input name="cauthor" type="text" placeholder="Ваше имя" required
-                class="sm:w-44 px-4 py-2.5 rounded-xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-sm" />
-              <input name="ctext" type="text" placeholder="Поделитесь мнением или опытом…" required
-                class="flex-1 px-4 py-2.5 rounded-xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-sm" />
-              <button type="submit" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-sand-400 text-graphite-900 font-bold text-sm hover:bg-sand-300 transition">
-                <i class="fa-solid fa-paper-plane"></i> Отправить
-              </button>
-            </form>
-
-            <div id="commentsList" class="mt-5 space-y-3">
-              ${commentsHTML(m)}
-            </div>
-          </div>
-        </div>`;
-
-      document.getElementById('viewModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function commentsHTML(m) {
-      const list = (m.comments || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
-      if (!list.length) {
-        return `<p class="text-sm text-graphite-400 italic py-2">Пока нет сообщений. Станьте первым, кто поделится опытом!</p>`;
-      }
-      return list.map(c => `
-        <div class="flex gap-3 animate-fade-up">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sand-300 to-sand-500 grid place-items-center text-white text-xs font-bold shrink-0">
-            ${escapeHtml(initials(c.author))}
-          </div>
-          <div class="flex-1 bg-graphite-50 rounded-2xl rounded-tl-sm px-4 py-3">
-            <div class="flex items-center justify-between gap-2">
-              <p class="text-sm font-bold text-graphite-800">${escapeHtml(c.author)}</p>
-              <p class="text-[11px] text-graphite-400">${escapeHtml(formatDate(c.date))}</p>
-            </div>
-            <p class="text-sm text-graphite-600 mt-0.5">${escapeHtml(c.text)}</p>
-          </div>
-        </div>`).join('');
-    }
-
-    function addComment(e, id) {
-      e.preventDefault();
-      const m = materials.find(x => x.id === id);
-      if (!m) return;
-      if (!m.comments) m.comments = [];
-      m.comments.push({
-        id: 'c-' + Date.now(),
-        author: e.target.cauthor.value.trim(),
-        text: e.target.ctext.value.trim(),
-        date: new Date().toISOString(),
-      });
-      save(materials);
-      e.target.reset();
-      // обновляем список комментариев + счётчик в модалке
-      document.getElementById('commentsList').innerHTML = commentsHTML(m);
-      // обновляем заголовок-счётчик
-      const head = document.querySelector('#viewModalBody h4 span');
-      if (head) head.textContent = `(${m.comments.length})`;
-      render();
-      showToast('Комментарий добавлен', 'fa-comment');
-    }
-
-    function closeViewModal() {
-      document.getElementById('viewModal').classList.add('hidden');
-      document.body.style.overflow = '';
-      currentViewId = null;
-    }
-
-    /* ------------------ TXT / COPY / DELETE ------------------ */
-    function buildTextDump(m) {
-      return `ШАҢЫРАҚ — Методическая копилка культурного наследия Павлодарской области
+    /* ============================================================
+       УТИЛИТЫ
+    ============================================================ */
+    const formatDate = (iso) => {
+      try { return new Date(iso).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}); }
+      catch { return ''; }
+    };
+    const uid = () => 'm-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
+    const initials = (name='') => {
+      const p = name.trim().split(/\s+/);
+      return ((p[0]?.[0]||'') + (p[1]?.[0]||'')).toUpperCase() || '🙂';
+    };
+    const shortDistrict = (d='') => d.replace(' район','').replace('(Качирский) ','');
+    const buildTextDump = (m) => `ШАҢЫРАҚ — Методическая копилка культурного наследия Павлодарской области
 ============================================================
 
 Название:   ${m.title}
@@ -950,74 +313,585 @@ ${m.content}
 ------------------------------------------------------------
 
 Сохранено из приложения «Шаңырақ».`;
-    }
 
-    function downloadTxt(id) {
-      const m = materials.find(x => x.id === id);
-      if (!m) return;
-      const blob = new Blob([buildTextDump(m)], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const safe = m.title.replace(/[^\p{L}\p{N}]+/gu, '_').slice(0, 50);
-      a.href = url;
-      a.download = `${safe || 'material'}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast('Файл TXT скачан', 'fa-download');
-    }
+    /* ============================================================
+       ДЕКОР: SVG-орнамент «шаңырақ»
+    ============================================================ */
+    const ShanyrakIcon = ({ className='' }) => (
+      <svg viewBox="0 0 100 100" className={className} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+        <circle cx="50" cy="50" r="30" />
+        <circle cx="50" cy="50" r="14" />
+        {Array.from({length:12}).map((_,i)=>{
+          const a=(i*30)*Math.PI/180;
+          return <line key={i} x1={50+14*Math.cos(a)} y1={50+14*Math.sin(a)} x2={50+30*Math.cos(a)} y2={50+30*Math.sin(a)} />;
+        })}
+        {/* перекрестье купола */}
+        <path d="M38 38 Q50 30 62 38" />
+        <path d="M38 62 Q50 70 62 62" />
+      </svg>
+    );
 
-    async function copyText(id) {
-      const m = materials.find(x => x.id === id);
-      if (!m) return;
-      const text = buildTextDump(m);
-      try {
-        await navigator.clipboard.writeText(text);
-        showToast('Текст скопирован в буфер', 'fa-copy');
-      } catch {
-        // fallback
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); showToast('Текст скопирован', 'fa-copy'); }
-        catch { showToast('Не удалось скопировать', 'fa-triangle-exclamation'); }
-        ta.remove();
-      }
-    }
+    /* Орнаментальный разделитель «қошқар мүйіз» */
+    const HornDivider = ({ className='' }) => (
+      <div className={"flex items-center gap-3 "+className}>
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-sand-300 to-sand-400/40" />
+        <svg width="46" height="20" viewBox="0 0 46 20" className="text-sand-500 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <path d="M23 18 C23 6 13 6 13 12 C13 16 19 16 19 10" />
+          <path d="M23 18 C23 6 33 6 33 12 C33 16 27 16 27 10" />
+          <circle cx="23" cy="3" r="2" fill="currentColor" stroke="none" />
+        </svg>
+        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-sand-300 to-sand-400/40" />
+      </div>
+    );
 
-    function deleteMaterial(id) {
-      if (!confirm('Удалить этот материал из копилки? Действие необратимо.')) return;
-      materials = materials.filter(m => m.id !== id);
-      save(materials);
-      closeViewModal();
-      render();
-      showToast('Материал удалён', 'fa-trash-can');
-    }
+    /* ============================================================
+       TOAST (контекст через простой проп-колбэк)
+    ============================================================ */
+    const Toast = ({ toast }) => {
+      if (!toast) return null;
+      return (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70]">
+          <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-graphite-900 text-white shadow-2xl animate-fade-up">
+            <i className={"fa-solid "+(toast.icon||'fa-circle-check')+" text-sky-400"}></i>
+            <span className="font-semibold text-sm">{toast.msg}</span>
+          </div>
+        </div>
+      );
+    };
 
-    /* ------------------ СБРОС К ПРИМЕРАМ ------------------ */
-    function resetSeed() {
-      if (!confirm('Сбросить все данные и вернуть стартовые примеры? Ваши добавленные материалы будут удалены.')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      materials = load();
-      render();
-      showToast('Данные сброшены к примерам', 'fa-rotate');
-    }
+    /* ============================================================
+       ШАПКА
+    ============================================================ */
+    const Header = ({ onAdd }) => (
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/70 border-b border-graphite-100/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <a href="#top" className="flex items-center gap-3 group">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-700 grid place-items-center shadow-lg shadow-sky-500/30 group-hover:scale-105 transition text-white">
+                <ShanyrakIcon className="w-6 h-6" />
+              </div>
+              <div className="leading-tight">
+                <p className="font-display text-xl font-extrabold text-graphite-900">Шаңырақ</p>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-sky-700 font-semibold">Мұра · Наследие</p>
+              </div>
+            </a>
+            <nav className="hidden md:flex items-center gap-1 text-sm font-semibold text-graphite-700">
+              <a href="#lenta" className="px-4 py-2 rounded-xl hover:bg-sky-50 hover:text-sky-700 transition">Лента</a>
+              <a href="#about" className="px-4 py-2 rounded-xl hover:bg-sky-50 hover:text-sky-700 transition">О проекте</a>
+              <button onClick={onAdd} className="ml-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-graphite-900 text-white hover:bg-graphite-800 transition shadow-lg shadow-graphite-900/20">
+                <i className="fa-solid fa-plus"></i> Добавить материал
+              </button>
+            </nav>
+            <button onClick={onAdd} className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl bg-graphite-900 text-white shadow-lg">
+              <i className="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+    );
 
-    /* ------------------ КЛАВИАТУРА ------------------ */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (!document.getElementById('viewModal').classList.contains('hidden')) closeViewModal();
-        if (!document.getElementById('addModal').classList.contains('hidden')) closeAddModal();
-      }
-    });
+    /* ============================================================
+       HERO
+    ============================================================ */
+    const Hero = ({ stats, onAdd }) => (
+      <section id="top" className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-600 via-sky-700 to-sky-900"></div>
+        <div className="absolute inset-0 shanyrak-grid"></div>
+        {/* большой вращающийся шаңырақ-силуэт */}
+        <ShanyrakIcon className="absolute -right-20 -top-16 w-[34rem] h-[34rem] text-white/5 animate-spin-slow" />
+        <div className="absolute -bottom-32 -left-24 w-96 h-96 rounded-full bg-sand-300/20 blur-3xl"></div>
 
-    /* ------------------ СТАРТ ------------------ */
-    initSelects();
-    render();
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+          <div className="max-w-3xl animate-fade-up">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-white text-xs font-semibold tracking-wide backdrop-blur">
+              <i className="fa-solid fa-location-dot text-sand-300"></i>
+              Павлодар облысы · Павлодарская область · Қазақстан
+            </span>
+
+            <h1 className="mt-6 font-display text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] flex items-center gap-4 flex-wrap">
+              Шаңырақ
+              <ShanyrakIcon className="w-14 h-14 sm:w-16 sm:h-16 text-sand-300 animate-float" />
+            </h1>
+            <p className="mt-4 text-lg sm:text-xl text-sky-50/90 font-medium max-w-2xl">
+              Методическая копилка культурного наследия Прииртышья. Сценарии, традиции,
+              краеведение и музыка — собранные педагогами и краеведами под единым шаңыраком.
+            </p>
+            <p className="mt-3 font-display text-sand-200/90 text-lg italic">«Өнер алды — қызыл тіл»</p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#lenta" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-sky-800 font-bold shadow-xl shadow-sky-900/30 hover:shadow-2xl hover:-translate-y-0.5 transition">
+                <i className="fa-solid fa-book-open"></i> Открыть копилку
+              </a>
+              <button onClick={onAdd} className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-sand-400 text-graphite-900 font-bold shadow-xl shadow-sand-900/20 hover:bg-sand-300 hover:-translate-y-0.5 transition">
+                <i className="fa-solid fa-feather-pointed"></i> Поделиться опытом
+              </button>
+            </div>
+
+            <div className="mt-12 grid grid-cols-3 gap-4 max-w-md">
+              {[['statMaterials','материалов',stats.materials],['statDistricts','районов',stats.districts],['statComments','обсуждений',stats.comments]].map(([k,label,val])=>(
+                <div key={k} className="text-white">
+                  <p className="text-3xl font-extrabold">{val}</p>
+                  <p className="text-xs text-sky-100/80 font-semibold uppercase tracking-wide">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="ornament-band h-6 relative"></div>
+      </section>
+    );
+
+    /* ============================================================
+       ПАНЕЛЬ ФИЛЬТРОВ
+    ============================================================ */
+    const FilterBar = ({ query,setQuery, district,setDistrict, category,setCategory }) => (
+      <section id="lenta" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
+        <div className="bg-white rounded-3xl shadow-xl shadow-graphite-900/5 border border-graphite-100 p-5 sm:p-6 animate-fade-up">
+          <div className="flex flex-col lg:flex-row gap-4 lg:items-center">
+            <div className="relative flex-1">
+              <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500"></i>
+              <input value={query} onChange={e=>setQuery(e.target.value)} type="text" placeholder="Поиск по названию, автору или описанию…"
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-graphite-800 placeholder:text-graphite-500" />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative">
+                <i className="fa-solid fa-map absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none"></i>
+                <select value={district} onChange={e=>setDistrict(e.target.value)}
+                  className="appearance-none w-full sm:w-56 pl-11 pr-10 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition font-semibold text-graphite-700 cursor-pointer">
+                  <option value="">Все районы</option>
+                  {DISTRICTS.map(d=> <option key={d} value={d}>{d}</option>)}
+                </select>
+                <i className="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none text-xs"></i>
+              </div>
+              <div className="relative">
+                <i className="fa-solid fa-layer-group absolute left-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none"></i>
+                <select value={category} onChange={e=>setCategory(e.target.value)}
+                  className="appearance-none w-full sm:w-56 pl-11 pr-10 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition font-semibold text-graphite-700 cursor-pointer">
+                  <option value="">Все категории</option>
+                  {CATEGORIES.map(c=> <option key={c.name} value={c.name}>{c.name}</option>)}
+                </select>
+                <i className="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-graphite-500 pointer-events-none text-xs"></i>
+              </div>
+            </div>
+          </div>
+
+          {/* чипы категорий */}
+          <div className="mt-4 flex gap-2 overflow-x-auto no-scrollbar pb-1">
+            {[{name:'',icon:'fa-border-all',label:'Все'},...CATEGORIES.map(c=>({name:c.name,icon:c.icon,label:c.name}))].map(c=>{
+              const active = category === c.name;
+              return (
+                <button key={c.name||'all'} onClick={()=>setCategory(c.name)}
+                  className={"whitespace-nowrap inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition "+
+                    (active ? "bg-sky-600 text-white border-sky-600 shadow-md shadow-sky-600/30"
+                            : "bg-white text-graphite-600 border-graphite-100 hover:border-sky-300 hover:text-sky-700")}>
+                  <i className={"fa-solid "+c.icon+" text-xs"}></i> {c.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ============================================================
+       КАРТОЧКА МАТЕРИАЛА
+    ============================================================ */
+    const Card = ({ m, index, onOpen }) => {
+      const meta = catMeta(m.category);
+      const st = CAT_STYLES[meta.color] || CAT_STYLES.graphite;
+      const cc = (m.comments||[]).length;
+      return (
+        <article onClick={()=>onOpen(m)}
+          style={{animation:'fade-up .55s cubic-bezier(.16,1,.3,1) both', animationDelay: Math.min(index*60,480)+'ms'}}
+          className="group bg-white rounded-2xl border border-graphite-100 shadow-sm hover:shadow-xl hover:shadow-graphite-900/5 hover:-translate-y-1 transition cursor-pointer overflow-hidden flex flex-col">
+          {/* орнаментальная шапка карточки */}
+          <div className={"h-1.5 "+st.dot}></div>
+          <div className="ornament-horns h-3 opacity-40 group-hover:opacity-70 transition"></div>
+          <div className="px-5 pb-5 pt-1 flex flex-col flex-1">
+            <div className="flex items-center justify-between gap-2">
+              <span className={"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold "+st.chip}>
+                <i className={"fa-solid "+meta.icon}></i> {m.category}
+              </span>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-graphite-500">
+                <i className="fa-solid fa-location-dot text-sky-500"></i> {shortDistrict(m.district)}
+              </span>
+            </div>
+            <h3 className="mt-3 font-display text-lg font-bold text-graphite-900 leading-snug group-hover:text-sky-700 transition">{m.title}</h3>
+            <p className="mt-2 text-sm text-graphite-500 line-clamp-3 flex-1">{m.summary}</p>
+            <div className="mt-4 pt-4 border-t border-graphite-100 flex items-center justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 grid place-items-center text-white text-xs font-bold shrink-0">{initials(m.author)}</div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-graphite-700 truncate">{m.author}</p>
+                  <p className="text-[11px] text-graphite-500">{formatDate(m.date)}</p>
+                </div>
+              </div>
+              {cc>0 && <span className="inline-flex items-center gap-1 text-xs text-graphite-500"><i className="fa-regular fa-comment"></i> {cc}</span>}
+            </div>
+            <button className="mt-4 inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-sky-50 text-sky-700 font-bold text-sm group-hover:bg-sky-600 group-hover:text-white transition">
+              Читать далее <i className="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </article>
+      );
+    };
+
+    /* ============================================================
+       МОДАЛКА-ОБЁРТКА
+    ============================================================ */
+    const ModalShell = ({ children, onClose, max='max-w-2xl' }) => {
+      useEffect(()=>{
+        const h=(e)=>{ if(e.key==='Escape') onClose(); };
+        document.addEventListener('keydown',h);
+        document.body.style.overflow='hidden';
+        return ()=>{ document.removeEventListener('keydown',h); document.body.style.overflow=''; };
+      },[]);
+      return (
+        <div className="fixed inset-0 z-50">
+          <div className="absolute inset-0 bg-graphite-900/50 backdrop-blur-sm animate-fade-in" onClick={onClose}></div>
+          <div className="absolute inset-0 overflow-y-auto modal-scroll">
+            <div className="min-h-full flex items-start sm:items-center justify-center p-4">
+              <div className={"relative w-full "+max+" bg-white rounded-3xl shadow-2xl animate-scale-in my-4"}>
+                {children}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    /* ============================================================
+       ФОРМА ДОБАВЛЕНИЯ
+    ============================================================ */
+    const AddModal = ({ onClose, onSubmit }) => {
+      const [f,setF] = useState({ title:'',author:'',district:'',category:'',summary:'',content:'' });
+      const set = (k)=>(e)=>setF({...f,[k]:e.target.value});
+      const submit = (e)=>{ e.preventDefault(); onSubmit(f); };
+      const inp = "w-full px-4 py-3 rounded-2xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition";
+      const lbl = "block text-sm font-bold text-graphite-700 mb-1.5";
+      return (
+        <ModalShell onClose={onClose}>
+          <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-5 border-b border-graphite-100 bg-white rounded-t-3xl">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-700 grid place-items-center text-white"><ShanyrakIcon className="w-5 h-5"/></div>
+              <div>
+                <h3 className="font-display text-2xl font-extrabold text-graphite-900">Новый материал</h3>
+                <p className="text-sm text-graphite-500">Добавьте свой вклад под общий шаңырақ</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="w-10 h-10 rounded-xl hover:bg-graphite-50 grid place-items-center text-graphite-500 transition"><i className="fa-solid fa-xmark text-lg"></i></button>
+          </div>
+          <form onSubmit={submit} className="px-6 py-6 space-y-5">
+            <div>
+              <label className={lbl}>Название материала <span className="text-sky-600">*</span></label>
+              <input required value={f.title} onChange={set('title')} type="text" placeholder="Например: Сценарий праздника Наурыз" className={inp}/>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>ФИО автора <span className="text-sky-600">*</span></label>
+                <input required value={f.author} onChange={set('author')} type="text" placeholder="Айгерим Серикова" className={inp}/>
+              </div>
+              <div>
+                <label className={lbl}>Район <span className="text-sky-600">*</span></label>
+                <select required value={f.district} onChange={set('district')} className={inp+" cursor-pointer"}>
+                  <option value="" disabled>Выберите район…</option>
+                  {DISTRICTS.map(d=> <option key={d} value={d}>{d}</option>)}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className={lbl}>Категория <span className="text-sky-600">*</span></label>
+              <select required value={f.category} onChange={set('category')} className={inp+" cursor-pointer"}>
+                <option value="" disabled>Выберите категорию…</option>
+                {CATEGORIES.map(c=> <option key={c.name} value={c.name}>{c.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className={lbl}>Краткое описание <span className="text-sky-600">*</span></label>
+              <textarea required value={f.summary} onChange={set('summary')} rows="2" placeholder="Одно-два предложения о сути материала…" className={inp+" resize-none"}></textarea>
+            </div>
+            <div>
+              <label className={lbl}>Полный текст / Методические рекомендации <span className="text-sky-600">*</span></label>
+              <textarea required value={f.content} onChange={set('content')} rows="6" placeholder="Подробное описание, ход мероприятия, методические рекомендации…" className={inp+" resize-y modal-scroll"}></textarea>
+            </div>
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button type="button" onClick={onClose} className="px-5 py-3 rounded-2xl font-bold text-graphite-600 hover:bg-graphite-50 transition">Отмена</button>
+              <button type="submit" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-sky-600 text-white font-bold shadow-lg shadow-sky-600/30 hover:bg-sky-700 hover:-translate-y-0.5 transition">
+                <i className="fa-solid fa-paper-plane"></i> Опубликовать в копилку
+              </button>
+            </div>
+          </form>
+        </ModalShell>
+      );
+    };
+
+    /* ============================================================
+       МОДАЛКА ПРОСМОТРА + КОММЕНТАРИИ
+    ============================================================ */
+    const ViewModal = ({ m, onClose, onAddComment, onDelete, onToast }) => {
+      const [ca,setCa] = useState('');
+      const [ct,setCt] = useState('');
+      const meta = catMeta(m.category);
+      const st = CAT_STYLES[meta.color] || CAT_STYLES.graphite;
+      const comments = (m.comments||[]).slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+
+      const submitComment = (e)=>{
+        e.preventDefault();
+        if(!ca.trim()||!ct.trim()) return;
+        onAddComment(m.id, ca.trim(), ct.trim());
+        setCa(''); setCt('');
+      };
+      const downloadTxt = ()=>{
+        const blob=new Blob([buildTextDump(m)],{type:'text/plain;charset=utf-8'});
+        const url=URL.createObjectURL(blob); const a=document.createElement('a');
+        const safe=m.title.replace(/[^\p{L}\p{N}]+/gu,'_').slice(0,50);
+        a.href=url; a.download=(safe||'material')+'.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        onToast('Файл TXT скачан','fa-download');
+      };
+      const copyText = async ()=>{
+        try { await navigator.clipboard.writeText(buildTextDump(m)); onToast('Текст скопирован в буфер','fa-copy'); }
+        catch {
+          const ta=document.createElement('textarea'); ta.value=buildTextDump(m); ta.style.position='fixed'; ta.style.opacity='0';
+          document.body.appendChild(ta); ta.select();
+          try{ document.execCommand('copy'); onToast('Текст скопирован','fa-copy'); }catch{ onToast('Не удалось скопировать','fa-triangle-exclamation'); }
+          ta.remove();
+        }
+      };
+
+      return (
+        <ModalShell onClose={onClose} max="max-w-3xl">
+          <div className="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 py-5 border-b border-graphite-100 bg-white/95 backdrop-blur rounded-t-3xl">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className={"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold "+st.chip}><i className={"fa-solid "+meta.icon}></i> {m.category}</span>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-graphite-500"><i className="fa-solid fa-location-dot text-sky-500"></i> {m.district}</span>
+              </div>
+              <h3 className="font-display text-2xl font-extrabold text-graphite-900 leading-tight">{m.title}</h3>
+            </div>
+            <button onClick={onClose} className="shrink-0 w-10 h-10 rounded-xl hover:bg-graphite-50 grid place-items-center text-graphite-500 transition"><i className="fa-solid fa-xmark text-lg"></i></button>
+          </div>
+
+          <div className="px-6 py-6">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 grid place-items-center text-white text-sm font-bold">{initials(m.author)}</div>
+              <div>
+                <p className="text-sm font-bold text-graphite-800">{m.author}</p>
+                <p className="text-xs text-graphite-500"><i className="fa-regular fa-calendar"></i> {formatDate(m.date)}</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-sky-50/70 border border-sky-100 p-4 mb-5">
+              <p className="text-sm text-sky-900/80 font-medium italic">{m.summary}</p>
+            </div>
+
+            <div className="whitespace-pre-wrap text-graphite-700 leading-relaxed text-[15px]">{m.content}</div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button onClick={downloadTxt} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-sky-600 text-white font-bold text-sm hover:bg-sky-700 transition shadow-lg shadow-sky-600/20"><i className="fa-solid fa-download"></i> Скачать в TXT</button>
+              <button onClick={copyText} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-graphite-100 text-graphite-700 font-bold text-sm hover:bg-graphite-200 transition"><i className="fa-regular fa-copy"></i> Копировать текст</button>
+              <button onClick={()=>onDelete(m.id)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-red-50 text-red-600 font-bold text-sm hover:bg-red-100 transition ml-auto"><i className="fa-regular fa-trash-can"></i> Удалить</button>
+            </div>
+
+            <HornDivider className="mt-8" />
+
+            <div className="mt-6">
+              <h4 className="font-display text-lg font-bold text-graphite-900 flex items-center gap-2">
+                <i className="fa-regular fa-comments text-sky-500"></i> Обмен опытом
+                <span className="text-sm font-semibold text-graphite-400">({comments.length})</span>
+              </h4>
+
+              <form onSubmit={submitComment} className="mt-4 flex flex-col sm:flex-row gap-3">
+                <input value={ca} onChange={e=>setCa(e.target.value)} type="text" placeholder="Ваше имя" required className="sm:w-44 px-4 py-2.5 rounded-xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-sm"/>
+                <input value={ct} onChange={e=>setCt(e.target.value)} type="text" placeholder="Поделитесь мнением или опытом…" required className="flex-1 px-4 py-2.5 rounded-xl bg-graphite-50 border border-transparent focus:border-sky-400 focus:bg-white outline-none transition text-sm"/>
+                <button type="submit" className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-sand-400 text-graphite-900 font-bold text-sm hover:bg-sand-300 transition"><i className="fa-solid fa-paper-plane"></i> Отправить</button>
+              </form>
+
+              <div className="mt-5 space-y-3">
+                {comments.length===0
+                  ? <p className="text-sm text-graphite-400 italic py-2">Пока нет сообщений. Станьте первым, кто поделится опытом!</p>
+                  : comments.map(c=>(
+                    <div key={c.id} className="flex gap-3 animate-fade-up">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sand-300 to-sand-500 grid place-items-center text-white text-xs font-bold shrink-0">{initials(c.author)}</div>
+                      <div className="flex-1 bg-graphite-50 rounded-2xl rounded-tl-sm px-4 py-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-sm font-bold text-graphite-800">{c.author}</p>
+                          <p className="text-[11px] text-graphite-400">{formatDate(c.date)}</p>
+                        </div>
+                        <p className="text-sm text-graphite-600 mt-0.5">{c.text}</p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </ModalShell>
+      );
+    };
+
+    /* ============================================================
+       СЕКЦИЯ «О ПРОЕКТЕ»
+    ============================================================ */
+    const About = () => (
+      <section id="about" className="relative pattern-dots">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-10">
+            <HornDivider className="max-w-xs mx-auto mb-6" />
+            <h2 className="font-display text-3xl font-extrabold text-graphite-900">О проекте «Шаңырақ»</h2>
+            <p className="mt-2 text-graphite-500 max-w-2xl mx-auto">Шаңырақ — купол юрты и символ единства семьи. Мы объединяем наследие Прииртышья под одним сводом.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              {icon:'fa-hand-holding-heart',cls:'bg-sky-100 text-sky-700',t:'Сақтаймыз · Сохраняем',d:'Каждый материал — частица живого наследия Павлодарского Прииртышья для будущих поколений.'},
+              {icon:'fa-people-group',cls:'bg-sand-100 text-sand-700',t:'Бөлісеміз · Делимся',d:'Педагоги и краеведы делятся сценариями, обсуждают и дополняют материалы коллег.'},
+              {icon:'fa-download',cls:'bg-graphite-100 text-graphite-700',t:'Қолжетімді · Доступно',d:'Скачивайте материалы в TXT, копируйте сценарии — данные хранятся прямо в вашем браузере.'},
+            ].map(c=>(
+              <div key={c.t} className="rounded-3xl bg-white border border-graphite-100 p-6 shadow-sm hover:shadow-lg transition">
+                <div className={"w-12 h-12 rounded-2xl grid place-items-center text-xl "+c.cls}><i className={"fa-solid "+c.icon}></i></div>
+                <h3 className="mt-4 font-bold text-lg text-graphite-900">{c.t}</h3>
+                <p className="mt-1 text-graphite-500 text-sm">{c.d}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* лента пословиц */}
+          <div className="mt-10 grid sm:grid-cols-2 gap-4">
+            {PROVERBS.map((p,i)=>(
+              <div key={i} className="rounded-2xl bg-gradient-to-br from-sky-700 to-sky-900 text-white p-5 shadow-lg overflow-hidden relative">
+                <ShanyrakIcon className="absolute -right-6 -bottom-6 w-24 h-24 text-white/10" />
+                <p className="font-display text-lg font-bold">«{p.kz}»</p>
+                <p className="text-sky-100/80 text-sm mt-1">{p.ru}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ============================================================
+       ПОДВАЛ
+    ============================================================ */
+    const Footer = ({ onReset }) => (
+      <footer className="bg-graphite-900 text-sky-100/70">
+        <div className="ornament-band h-6 opacity-60"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 grid place-items-center text-white"><ShanyrakIcon className="w-5 h-5"/></div>
+            <div>
+              <p className="font-display font-bold text-white">Шаңырақ</p>
+              <p className="text-xs">Методическая копилка · Павлодарская область</p>
+            </div>
+          </div>
+          <p className="text-xs text-center sm:text-right">
+            Локальное React-приложение · данные хранятся в вашем браузере (localStorage)<br/>
+            <button onClick={onReset} className="mt-1 underline hover:text-white transition">Сбросить к примерам</button>
+          </p>
+        </div>
+      </footer>
+    );
+
+    /* ============================================================
+       КОРНЕВОЙ КОМПОНЕНТ
+    ============================================================ */
+    const App = () => {
+      const [materials,setMaterials] = useState(loadData);
+      const [query,setQuery] = useState('');
+      const [district,setDistrict] = useState('');
+      const [category,setCategory] = useState('');
+      const [showAdd,setShowAdd] = useState(false);
+      const [viewId,setViewId] = useState(null);
+      const [toast,setToast] = useState(null);
+      const toastTimer = useRef(null);
+
+      useEffect(()=>{ saveData(materials); },[materials]);
+
+      const showToast = (msg,icon='fa-circle-check')=>{
+        setToast({msg,icon});
+        clearTimeout(toastTimer.current);
+        toastTimer.current=setTimeout(()=>setToast(null),2600);
+      };
+
+      const stats = useMemo(()=>({
+        materials: materials.length,
+        districts: new Set(materials.map(m=>m.district)).size,
+        comments: materials.reduce((s,m)=>s+(m.comments?.length||0),0),
+      }),[materials]);
+
+      const filtered = useMemo(()=>{
+        const q=query.trim().toLowerCase();
+        return materials.filter(m=>{
+          const mq=!q || m.title.toLowerCase().includes(q) || (m.summary||'').toLowerCase().includes(q) || (m.author||'').toLowerCase().includes(q);
+          const md=!district || m.district===district;
+          const mc=!category || m.category===category;
+          return mq&&md&&mc;
+        }).slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+      },[materials,query,district,category]);
+
+      const viewItem = materials.find(m=>m.id===viewId) || null;
+
+      const handleAdd = (f)=>{
+        const item={ id:uid(), title:f.title.trim(), author:f.author.trim(), district:f.district, category:f.category, summary:f.summary.trim(), content:f.content.trim(), date:new Date().toISOString(), comments:[] };
+        setMaterials(prev=>[...prev,item]);
+        setShowAdd(false);
+        setQuery(''); setDistrict(''); setCategory('');
+        showToast('Материал опубликован в копилку!','fa-circle-check');
+        setTimeout(()=>document.getElementById('lenta')?.scrollIntoView({behavior:'smooth'}),60);
+      };
+      const handleAddComment = (id,author,text)=>{
+        setMaterials(prev=>prev.map(m=> m.id===id ? {...m, comments:[...(m.comments||[]), {id:'c-'+Date.now(),author,text,date:new Date().toISOString()}]} : m));
+        showToast('Комментарий добавлен','fa-comment');
+      };
+      const handleDelete = (id)=>{
+        if(!confirm('Удалить этот материал из копилки? Действие необратимо.')) return;
+        setMaterials(prev=>prev.filter(m=>m.id!==id));
+        setViewId(null);
+        showToast('Материал удалён','fa-trash-can');
+      };
+      const handleReset = ()=>{
+        if(!confirm('Сбросить все данные и вернуть стартовые примеры? Ваши добавленные материалы будут удалены.')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        setMaterials(structuredClone(SEED));
+        showToast('Данные сброшены к примерам','fa-rotate');
+      };
+
+      return (
+        <>
+          <Header onAdd={()=>setShowAdd(true)} />
+          <Hero stats={stats} onAdd={()=>setShowAdd(true)} />
+          <FilterBar query={query} setQuery={setQuery} district={district} setDistrict={setDistrict} category={category} setCategory={setCategory} />
+
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="flex items-end justify-between mb-6">
+              <div>
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-graphite-900">Лента материалов</h2>
+                <p className="text-graphite-500 text-sm mt-1">{filtered.length ? `Найдено материалов: ${filtered.length}` : 'Материалы не найдены'}</p>
+              </div>
+            </div>
+
+            {filtered.length ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((m,i)=> <Card key={m.id} m={m} index={i} onOpen={(x)=>setViewId(x.id)} />)}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <div className="w-20 h-20 mx-auto rounded-3xl bg-sky-50 grid place-items-center text-sky-500 text-3xl"><i className="fa-regular fa-folder-open"></i></div>
+                <p className="mt-5 text-lg font-bold text-graphite-800">Ничего не найдено</p>
+                <p className="text-graphite-500">Попробуйте изменить фильтры или добавьте первый материал.</p>
+                <button onClick={()=>setShowAdd(true)} className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-sky-600 text-white font-bold hover:bg-sky-700 transition"><i className="fa-solid fa-plus"></i> Добавить материал</button>
+              </div>
+            )}
+          </main>
+
+          <About />
+          <Footer onReset={handleReset} />
+
+          {showAdd && <AddModal onClose={()=>setShowAdd(false)} onSubmit={handleAdd} />}
+          {viewItem && <ViewModal m={viewItem} onClose={()=>setViewId(null)} onAddComment={handleAddComment} onDelete={handleDelete} onToast={showToast} />}
+          <Toast toast={toast} />
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
